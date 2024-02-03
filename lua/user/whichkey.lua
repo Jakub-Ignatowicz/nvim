@@ -5,6 +5,8 @@ local M = {
 function M.config()
   local mappings = {
     q = { "<cmd>confirm q<CR>", "Quit" },
+    s = { "<cmd>lua vim.lsp.buf.format()<CR><cmd>w<CR>", "Save and format" },
+    S = { "<cmd>w<CR>", "Save" },
     h = { "<cmd>nohlsearch<CR>", "NOHL" },
     v = { "<cmd>vsplit<CR>", "Split" },
     b = { name = "Buffers" },

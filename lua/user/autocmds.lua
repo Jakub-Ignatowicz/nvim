@@ -4,21 +4,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   end,
 })
 
-local api = vim.api
-
-vim.cmd("autocmd BufEnter * set formatoptions-=cro")
-vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
-
-api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    command = "lua vim.lsp.buf.format()",
-})
-
-api.nvim_create_autocmd("TextChangedI", {
-    pattern = "*",
-    callback = function() vim.notify(vim.inspect(vim.diagnostic.config()), vim.log.levels.DEBUG) end,
-})
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = {
     "netrw",
