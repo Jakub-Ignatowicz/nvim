@@ -9,6 +9,7 @@ local M = {
     "marilari88/neotest-vitest",
     "nvim-neotest/neotest-python",
     "nvim-neotest/neotest-plenary",
+    "nvim-neotest/neotest-go",
     "rouge8/neotest-rust",
     "lawrence-laz/neotest-zig",
     "rcasia/neotest-bash",
@@ -28,6 +29,7 @@ function M.config()
   ---@diagnostic disable: missing-fields
   require("neotest").setup {
     adapters = {
+      require "neotest-go",
       require "neotest-python" {
         dap = { justMyCode = false },
       },
