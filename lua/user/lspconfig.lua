@@ -52,7 +52,7 @@ function M.config()
     ["<leader>lk"] = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
     ["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     ["<leader>lq"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
-    ["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    ["<leader>lr"] = { "<cmd>LspRestart<cr>", "Restart" },
   }
 
   wk.register {
@@ -64,12 +64,16 @@ function M.config()
 
   local lspconfig = require "lspconfig"
   local icons = require "user.icons"
-
   local servers = {
+    "solargraph",
+    "omnisharp",
+    "emmet_ls",
+    "html",
+    "tailwindcss",
+    "jdtls",
     "gopls",
     "lua_ls",
     "cssls",
-    "html",
     "tsserver",
     "eslint",
     "tsserver",
@@ -114,10 +118,21 @@ function M.config()
   require("lspconfig.ui.windows").default_options.border = "rounded"
 
   for _, server in pairs(servers) do
-    local opts = {
-      on_attach = M.on_attach,
-      capabilities = M.common_capabilities(),
-    }
+    local opts = {}
+    if server == "omnisharp" then
+      opts = {
+        on_attach = M.on_attach,
+        capabilities = M.common_capabilities(),
+        cmd = {
+          "/Users/admin/.local/share/nvim/mason/bin/omnisharp",
+        },
+      }
+    else
+      opts = {
+        on_attach = M.on_attach,
+        capabilities = M.common_capabilities(),
+      }
+    end
 
     local require_ok, settings = pcall(require, "user.lspsettings." .. server)
     if require_ok then
