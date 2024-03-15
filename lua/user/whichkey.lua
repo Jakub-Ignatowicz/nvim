@@ -4,11 +4,11 @@ local M = {
 
 function M.config()
   local mappings = {
-    q = { "<cmd>confirm q<CR>", "Quit" },
-    s = { "<cmd>lua vim.lsp.buf.format()<CR><cmd>w<CR>", "Save and format" },
-    S = { "<cmd>w<CR>", "Save" },
+    w = { "<cmd>lua vim.lsp.buf.format()<CR><cmd>w<CR>", "Save and format" },
+    W = { "<cmd>w<CR>", "Save" },
     h = { "<cmd>nohlsearch<CR>", "NOHL" },
     v = { "<cmd>vsplit<CR>", "Split" },
+    m = { "<cmd>Mason<CR>", "Mason" },
     b = { name = "Buffers" },
     d = { name = "Debug" },
     f = { name = "Find" },
@@ -16,6 +16,15 @@ function M.config()
     l = { name = "LSP" },
     p = { name = "Plugins" },
     t = { name = "Test" },
+    q = {
+      name = "Quit",
+      q = { "<cmd>confirm q<CR>", "Quit" },
+      Q = { "<cmd>qa!<CR>", "Force quit all" },
+      w = { "<cmd>wq<CR>", "Save and quit" },
+      W = { "<cmd>wqa!<CR>", "Save and force quit all" },
+      f = { "<cmd>lua vim.lsp.buf.format()<CR><cmd>wq<CR>", "Format, save and quit" },
+      F = { "<cmd>lua vim.lsp.buf.format()<CR><cmd>wqa!<CR>", "Format, save and force quit all" },
+    },
     a = {
       name = "Tab",
       n = { "<cmd>$tabnew<cr>", "New Empty Tab" },
