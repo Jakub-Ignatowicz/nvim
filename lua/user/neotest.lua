@@ -13,6 +13,7 @@ local M = {
     "rouge8/neotest-rust",
     "lawrence-laz/neotest-zig",
     "rcasia/neotest-bash",
+    "rcasia/neotest-java"
   },
 }
 
@@ -29,6 +30,9 @@ function M.config()
   ---@diagnostic disable: missing-fields
   require("neotest").setup {
     adapters = {
+      require "neotest-java" {
+        ignore_wrapper = false,
+      },
       require "neotest-go",
       require "neotest-python" {
         dap = { justMyCode = false },
