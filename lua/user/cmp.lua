@@ -133,16 +133,28 @@ function M.config()
         return vim_item
       end,
     },
-    sources = {
-      { name = "copilot" },
+    sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "luasnip" },
-      { name = "cmp_tabnine" },
-      { name = "nvim_lua" },
+    }, {
       { name = "buffer" },
       { name = "path" },
-      { name = "calc" },
-      { name = "emoji" },
+      -- { name = "copilot" },
+    }),
+    sorting = {
+      priority_weight = 2,
+      comparators = {
+        cmp.config.compare.exact,
+        cmp.config.compare.offset,
+        cmp.config.compare.score,
+        cmp.config.compare.scopes,
+        cmp.config.compare.recently_used,
+        cmp.config.compare.length,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.locality,
+        cmp.config.compare.order,
+        cmp.config.compare.kind,
+      },
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
