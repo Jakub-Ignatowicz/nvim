@@ -41,7 +41,7 @@ M.config = function()
 
   local wk = require "which-key"
   wk.register {
-    ["<leader>rc"] = { "<cmd>lua require('ror.commands').list_commands()<cr>", "Ruby" },
+    ["<leader>r"] = { "<cmd>lua require('ror.commands').list_commands()<cr>", "Ruby" },
   }
 end
 
