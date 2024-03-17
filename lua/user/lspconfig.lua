@@ -8,6 +8,8 @@ local M = {
   },
 }
 
+vim.lsp.set_log_level "debug"
+
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   local keymap = vim.api.nvim_buf_set_keymap
@@ -63,6 +65,8 @@ function M.config()
   }
 
   local lspconfig = require "lspconfig"
+  local configs = require "lspconfig.configs"
+  local util = require "lspconfig.util"
   local icons = require "user.icons"
   local servers = {
     "solargraph",
@@ -82,6 +86,20 @@ function M.config()
     "jsonls",
     "yamlls",
   }
+
+  if not configs.ror_lsp then
+    configs.ror_lsp = {
+      default_config = {
+        -- cmd = { "bundle", "exec", "ror-lsp" },
+        cmd = { "/Users/admin/ror-lsp/exe/ror-lsp" },
+        filetypes = { "ruby", "eruby" },
+        root_dir = util.root_pattern "bin/rails",
+        settings = {},
+      },
+    }
+  end
+
+  lspconfig.ror_lsp.setup {}
 
   local default_diagnostic_config = {
     signs = {
