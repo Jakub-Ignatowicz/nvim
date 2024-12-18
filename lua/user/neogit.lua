@@ -10,7 +10,9 @@ function M.config()
     ["<leader>gg"] = { "<cmd>Neogit<CR>", "Neogit" },
   }
 
-  require("neogit").setup {
+  local neogit = require('neogit')
+
+  neogit.setup {
     auto_refresh = true,
     disable_builtin_notifications = false,
     use_magit_keybindings = false,

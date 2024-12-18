@@ -69,6 +69,9 @@ function M.config()
   local util = require "lspconfig.util"
   local icons = require "user.icons"
   local servers = {
+    "bacon",
+    "rust_analyzer",
+    "asm_lsp",
     "solargraph",
     "omnisharp",
     "emmet_ls",
@@ -78,9 +81,8 @@ function M.config()
     "gopls",
     "lua_ls",
     "cssls",
-    "tsserver",
+    "ts_ls",
     "eslint",
-    "tsserver",
     "pyright",
     "bashls",
     "jsonls",

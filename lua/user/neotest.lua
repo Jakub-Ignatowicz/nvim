@@ -11,6 +11,7 @@ local M = {
     "nvim-neotest/neotest-plenary",
     "nvim-neotest/neotest-go",
     "rouge8/neotest-rust",
+    "nvim-neotest/nvim-nio",
     "lawrence-laz/neotest-zig",
     "rcasia/neotest-bash",
     "rcasia/neotest-java",
@@ -31,7 +32,7 @@ function M.config()
   ---@diagnostic disable: missing-fields
   require("neotest").setup {
     adapters = {
-      require "neotest-rspec",
+       require("neotest-rspec"),
       require "neotest-java" {
         ignore_wrapper = false,
       },
