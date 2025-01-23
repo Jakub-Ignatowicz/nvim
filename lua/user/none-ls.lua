@@ -14,16 +14,16 @@ function M.config()
   null_ls.setup {
     debug = false,
     sources = {
-      diagnostics.omnisharp,
-      diagnostics.html,
-      diagnostics.bacon,
-      formatting.bacon,
+      formatting.stylua,
+      formatting.prismals,
+      formatting.cssls,
+      formatting.biome,
       formatting.asmfmt,
-      formatting.omnisharp,
-      formatting.html,
       formatting.stylua,
       formatting.prettier,
       formatting.black,
+      diagnostics.prismals,
+      diagnostics.cssls,
     },
   }
 end

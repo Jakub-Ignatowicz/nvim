@@ -8,8 +8,6 @@ local M = {
   },
 }
 
-vim.lsp.set_log_level "debug"
-
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   local keymap = vim.api.nvim_buf_set_keymap
@@ -25,7 +23,7 @@ M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
 
   if client.supports_method "textDocument/inlayHint" then
-    vim.lsp.inlay_hint.enable(bufnr, true)
+    vim.lsp.inlay_hint.enable(true, { bufnr })
   end
 end
 
@@ -37,71 +35,49 @@ end
 
 M.toggle_inlay_hints = function()
   local bufnr = vim.api.nvim_get_current_buf()
-  vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr }, { bufnr })
 end
 
 function M.config()
   local wk = require "which-key"
-  wk.register {
-    ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    ["<leader>lf"] = {
+  wk.add {
+    { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
+    {
+      "<leader>lf",
       "<cmd>lua vim.lsp.buf.format({async = true, filter = function(client) return client.name ~= 'typescript-tools' end})<cr>",
-      "Format",
+      desc = "Format",
     },
-    ["<leader>li"] = { "<cmd>LspInfo<cr>", "Info" },
-    ["<leader>lj"] = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
-    ["<leader>lh"] = { "<cmd>lua require('user.lspconfig').toggle_inlay_hints()<cr>", "Hints" },
-    ["<leader>lk"] = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
-    ["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-    ["<leader>lq"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
-    ["<leader>lr"] = { "<cmd>LspRestart<cr>", "Restart" },
+    { "<leader>lh", "<cmd>lua require('user.lspconfig').toggle_inlay_hints()<cr>", desc = "Hints" },
+    { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
+    { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
+    { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
+    { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
+    { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
+    { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
   }
 
-  wk.register {
-    ["<leader>la"] = {
-      name = "LSP",
-      a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action", mode = "v" },
-    },
+  wk.add {
+    { "<leader>la", group = "LSP" },
+    { "<leader>laa", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", mode = "v" },
   }
 
   local lspconfig = require "lspconfig"
-  local configs = require "lspconfig.configs"
-  local util = require "lspconfig.util"
   local icons = require "user.icons"
+
   local servers = {
-    "bacon",
-    "rust_analyzer",
-    "asm_lsp",
-    "solargraph",
-    "omnisharp",
-    "emmet_ls",
-    "html",
-    "tailwindcss",
-    "jdtls",
-    "gopls",
     "lua_ls",
     "cssls",
+    "html",
+    "prismals",
     "ts_ls",
     "eslint",
+    "ts_ls",
     "pyright",
     "bashls",
     "jsonls",
     "yamlls",
+    "omnisharp",
   }
-
-  if not configs.ror_lsp then
-    configs.ror_lsp = {
-      default_config = {
-        -- cmd = { "bundle", "exec", "ror-lsp" },
-        cmd = { "/Users/admin/ror-lsp/exe/ror-lsp" },
-        filetypes = { "ruby", "eruby" },
-        root_dir = util.root_pattern "bin/rails",
-        settings = {},
-      },
-    }
-  end
-
-  lspconfig.ror_lsp.setup {}
 
   local default_diagnostic_config = {
     signs = {
@@ -162,7 +138,6 @@ function M.config()
     if server == "lua_ls" then
       require("neodev").setup {}
     end
-
     lspconfig[server].setup(opts)
   end
 end
