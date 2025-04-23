@@ -23,7 +23,9 @@ function M.config()
       formatting.prettier,
       formatting.black,
       diagnostics.prismals,
+      diagnostics.tailwindcss,
       diagnostics.cssls,
+      diagnostics.clangd,
     },
   }
 end

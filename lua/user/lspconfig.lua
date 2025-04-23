@@ -55,20 +55,17 @@ function M.config()
     { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
     { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
   }
-
-  wk.add {
-    { "<leader>la", group = "LSP" },
-    { "<leader>laa", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", mode = "v" },
-  }
-
   local lspconfig = require "lspconfig"
   local icons = require "user.icons"
 
   local servers = {
     "lua_ls",
+    "gopls",
+    "clangd",
     "cssls",
     "html",
     "prismals",
+    "jdtls",
     "ts_ls",
     "eslint",
     "ts_ls",
@@ -77,6 +74,7 @@ function M.config()
     "jsonls",
     "yamlls",
     "omnisharp",
+    "tailwindcss",
   }
 
   local default_diagnostic_config = {

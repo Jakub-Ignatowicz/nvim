@@ -14,8 +14,8 @@ function M.config()
       { "<leader>W", "<cmd>w<CR>", desc = "Save" },
       { "<leader>a", group = "Tab" },
       { "<leader>aN", "<cmd>tabnew %<cr>", desc = "New Tab" },
-      { "<leader>ah", "<cmd>-tabmove<cr>", desc = "Move Left" },
-      { "<leader>al", "<cmd>+tabmove<cr>", desc = "Move Right" },
+      { "<leader>ah", "<cmd>tabprevious<cr>", desc = "Move Left" },
+      { "<leader>al", "<cmd>tabnext<cr>", desc = "Move Right" },
       { "<leader>an", "<cmd>$tabnew<cr>", desc = "New Empty Tab" },
       { "<leader>ao", "<cmd>tabonly<cr>", desc = "Only" },
       { "<leader>b", group = "Buffers" },
@@ -69,4 +69,3 @@ function M.config()
 end
 
 return M
-
